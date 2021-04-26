@@ -5,13 +5,20 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public Material hitMaterial;
+    public AudioClip shotSound;
+    private AudioSource gunAudioSource;
 
+    void Awake()
+    {
+        gunAudioSource = GetComponent<AudioSource>();
+    }
     // Update is called once per frame
     void Update()
     {
         
-        if((Input.touchCount >= 1 && Input.GetTouch(0).phase == TouchPhase.Ended) || (Input.GetMouseButtonDown(0)))
+        if((Input.touchCount >= 1 && Input.GetTouch(0).phase == TouchPhase.Ended) || (Input.GetMouseButtonUp(0)))
         {
+            gunAudioSource.PlayOneShot(shotSound);
             Vector3 pos = Input.mousePosition;
             if (Application.platform == RuntimePlatform.Android)
             { 
